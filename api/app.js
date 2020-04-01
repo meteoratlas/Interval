@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const userRouter = require("./routes/userRoutes");
+const postRouter = require("./routes/postRoutes");
 
 const API_VERSION = 1;
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(`/v${API_VERSION}/users`, userRouter);
+app.use(`/v${API_VERSION}/posts`, postRouter);
 
 mongoose.connect(
   process.env.MONGODB_CONNECTION,
