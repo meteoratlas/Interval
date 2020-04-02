@@ -9,7 +9,12 @@ const PostSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true
+  },
+  song: {
+    type: Schema.Types.ObjectId,
+    ref: "Song"
   },
   description: {
     type: String,
@@ -23,6 +28,14 @@ const PostSchema = new Schema({
   dateLastEdited: {
     type: Date,
     default: Date.now()
+  },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  shares: {
+    type: Number,
+    default: 0
   }
 });
 

@@ -10,6 +10,10 @@ const UserSchema = new Schema({
   description: {
     type: String
   },
+  dateJoined: {
+    type: Date,
+    default: Date.now()
+  },
   posts: {
     type: [{ type: Schema.Types.ObjectId, ref: "Posts" }]
   }
