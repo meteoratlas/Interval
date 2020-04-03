@@ -1,24 +1,31 @@
 import React from "react";
-import { Container, Row, Col, Navbar } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "./App.css";
+import Header from "./components/Header";
+import PostCard from "./components/PostCard";
+import NewPostModal from "./components/NewPostModal";
 
 function App() {
+  const testData = {
+    userName: "elkFriend",
+    postContent: "This is really what I needed to hear right now.",
+    songTitle: "Empire Ants",
+    recordingTitle: "Plastic Beach",
+    likes: 15,
+    shares: 4,
+    timePosted: Date.now()
+  };
   return (
     <div className="App">
-      <header>
-        <Navbar>
-          <Navbar.Brand href="#">Interval</Navbar.Brand>
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              Signed in as: <a href="#login">USERNAME</a>
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Navbar>
-      </header>
+      <Header />
+      <NewPostModal />
       <Container fluid>
         <Row>
           <Col>Left Sidebar</Col>
-          <Col xs={6}>Main Content</Col>
+          <Col xs={6}>
+            Main Content
+            <PostCard data={testData} />
+          </Col>
           <Col>Right Sidebar</Col>
         </Row>
       </Container>
