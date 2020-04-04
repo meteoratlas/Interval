@@ -2,7 +2,24 @@ const Post = require("../models/post");
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const queryObj = { ...req.query };
+    const excluded = ["page", "sort", "limit", "fields"];
+    excluded.forEach(i => delete queryObj[i]);
+
+    let queryString = JSON.stringify(queryObj);
+    // get the equality comparison keys and convert them to mongoDB syntax ($ prefix)
+    // gte = greater than or equals
+    // gt = greater than
+    // lt = less than
+    // lte = less than or equals
+    queryString = queryString.replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      match => `$${match}`
+    );
+    const query = Post.find(JSON.parse(queryString));
+
+    const posts = await query;
+
     res.status(201).json({
       status: "success",
       results: posts.length,
