@@ -1,56 +1,15 @@
 const Post = require("../models/post");
+const APIFeatures = require("../utils/apiFeatures");
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const queryObj = { ...req.query };
-    const excluded = ["page", "sort", "limit", "fields"];
-    excluded.forEach((i) => delete queryObj[i]);
-
-    let queryString = JSON.stringify(queryObj);
-    // get the equality comparison keys and convert them to mongoDB syntax ($ prefix)
-    // gte = greater than or equals
-    // gt = greater than
-    // lt = less than
-    // lte = less than or equals
-    queryString = queryString.replace(
-      /\b(gte|gt|lte|lt)\b/g,
-      (match) => `$${match}`
-    );
-    let query = Post.find(JSON.parse(queryString));
-
-    // sorting
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(",").join(" ");
-      query = query.sort(sortBy);
-    } else {
-      query.sort("-datePosted");
-    }
-
-    // limit fields
-    if (req.query.fields) {
-      const fields = req.query.sort.split(",").join(" ");
-      query = query.select(fields);
-    } else {
-      query = query.select("-__v"); // exclude this field
-    }
-
-    // pagination
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 1;
-    const skip = page - 1 * limit;
-
-    query = query.skip(skip).limit(limit);
-
-    // return error if
-    if (req.query.page) {
-      const pageNums = await Post.countDocuments();
-      if (skip >= pageNums) {
-        throw new Error("This page does not exist.");
-      }
-    }
-
     // execute the query
-    const posts = await query;
+    const features = new APIFeatures(Post.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .pagination();
+    const posts = await features.query;
 
     res.status(201).json({
       status: "success",
