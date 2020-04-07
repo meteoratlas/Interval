@@ -14,6 +14,7 @@ class APIFeatures {
     // gt = greater than
     // lt = less than
     // lte = less than or equals
+    // https://docs.mongodb.com/manual/reference/operator/query/
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
     this.query = this.query.find(JSON.parse(queryStr));
     return this;

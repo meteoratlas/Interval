@@ -95,3 +95,36 @@ exports.deletePost = async (req, res) => {
     });
   }
 };
+
+exports.getPostStats = async (req, res) => {
+  try {
+    const stats = await Post.aggregate([
+      {
+        $match: { likes: { $gte: 50 } },
+      },
+      {
+        $group: {
+          _id: null, // group all together
+          avgShares: { $avg: "$shares" },
+          numShares: { $sum: "$shares" },
+        },
+      },
+      {
+        $sort: {
+          avgShares: 1, // 1 for ascending
+        },
+      },
+    ]);
+    res.status(200).json({
+      status: "success",
+      data: {
+        stats,
+      },
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};

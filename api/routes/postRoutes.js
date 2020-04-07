@@ -3,10 +3,9 @@ const controller = require("../controllers/postControllers");
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(controller.getAllPosts)
-  .post(controller.createPost);
+router.route("/").get(controller.getAllPosts).post(controller.createPost);
+
+router.route("/post-stats").get(controller.getPostStats);
 
 router
   .route("/:id")
