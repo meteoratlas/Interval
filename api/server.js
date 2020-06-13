@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== "development") {
     });
 }
 
-const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.MONGODD_PASS);
+const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
 mongoose
     .connect(DB, {
         useNewUrlParser: true,
@@ -31,7 +31,9 @@ mongoose
     })
     .then(() => {
         console.log("Connection successful.");
-    });
+    })
+    .catch((err) => console.log(err));
 
-const port = 3001;
-const server = app.listen(port);
+const server = app.listen(process.env.PORT, () => {
+    console.log("App running on port", process.env.PORT);
+});

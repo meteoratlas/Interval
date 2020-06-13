@@ -54,16 +54,8 @@ app.use(xss());
 
 app.use(compression());
 
-app.use(`/v${API_VERSION}/users`, userRouter);
-app.use(`/v${API_VERSION}/posts`, postRouter);
-
-mongoose.connect(
-    process.env.MONGODB_CONNECTION,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => {
-        console.log("Connected to MongoDB");
-    }
-);
+app.use(`/api/v${API_VERSION}/users`, userRouter);
+app.use(`/api/v${API_VERSION}/posts`, postRouter);
 
 app.all("*", (req, res, next) => {
     // passing an argument to next() always tells express there was an error
@@ -75,7 +67,7 @@ app.all("*", (req, res, next) => {
     );
 });
 
-const db = mongoose.connection;
-db.on("Error: ", (error) => console.warn(error));
+// const db = mongoose.connection;
+// db.on("Error: ", (error) => console.warn(error));
 
 module.exports = app;
