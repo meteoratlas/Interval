@@ -38,11 +38,9 @@ class APIFeatures {
         return this;
     }
     paginate() {
-        // TODO: prevents results from appearing?
         const page = parseInt(this.queryString.page) || 1;
         const limit = parseInt(this.queryString.limit) || 100;
         const skip = (page - 1) * limit;
-
         this.query = this.query.skip(skip).limit(limit);
 
         return this;

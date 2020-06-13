@@ -7,8 +7,8 @@ exports.getAllPosts = async (req, res) => {
         const features = new APIFeatures(Post.find(), req.query)
             .filter()
             .sort()
-            .limitFields();
-        // .pagination();
+            .limitFields()
+            .paginate();
         const posts = await features.query;
 
         res.status(201).json({
