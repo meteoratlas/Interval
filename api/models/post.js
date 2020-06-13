@@ -9,7 +9,7 @@ const PostSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        //required: true,
     },
     song: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +22,7 @@ const PostSchema = new mongoose.Schema({
     datePosted: {
         type: Date,
         default: Date.now(),
-        required: true,
+        //required: true,
     },
     dateLastEdited: {
         type: Date,
@@ -38,4 +38,4 @@ const PostSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Posts", PostSchema);
+module.exports = mongoose.model("Post", PostSchema);
