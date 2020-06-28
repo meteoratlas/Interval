@@ -5,6 +5,10 @@ const LeftSidebar = () => {
     return (
         <>
             <Nav
+                style={{
+                    backgroundColor: "#ddd",
+                    minHeight: "100vh",
+                }}
                 variant="pills"
                 // defaultActiveKey="/home"
                 className="flex-column"

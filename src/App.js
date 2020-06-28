@@ -21,7 +21,12 @@ function App() {
         <div className="App">
             <Header />
             {/* <NewPostModal /> */}
-            <Container fluid>
+            <Container
+                fluid
+                style={{
+                    minHeight: "100vh",
+                }}
+            >
                 <Row>
                     <Col>
                         <LeftSidebar />
