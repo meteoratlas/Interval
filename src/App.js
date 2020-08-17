@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import moment from "moment";
 import { Container, CardDeck, Row, Col } from "react-bootstrap";
 import "./App.css";
@@ -8,6 +9,7 @@ import LeftSidebar from "./components/LeftSidebar";
 import NewPostModal from "./components/NewPostModal";
 
 function App() {
+    const [showNewPostModal, setNewPostModal] = useState(false);
     const testData = {
         userName: "elkFriend",
         postContent: "This is really what I needed to hear right now.",
@@ -20,7 +22,7 @@ function App() {
     return (
         <div className="App">
             <Header />
-            {/* <NewPostModal /> */}
+            <NewPostModal show={showNewPostModal} />
             <Container
                 fluid
                 style={{
@@ -32,7 +34,6 @@ function App() {
                         <LeftSidebar />
                     </Col>
                     <Col xs={6}>
-                        Main Content
                         <CardDeck>
                             <PostCard data={testData} />
                             <PostCard data={testData} />
