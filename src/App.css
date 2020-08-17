@@ -25,3 +25,7 @@ html {
     font-size: larger;
     font-weight: 700;
 }
+
+#right-sidebar .card {
+    margin-bottom: 1em;
+}

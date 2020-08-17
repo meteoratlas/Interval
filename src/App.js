@@ -6,6 +6,7 @@ import "./App.css";
 import Header from "./components/Header";
 import PostCard from "./components/PostCard";
 import LeftSidebar from "./components/LeftSidebar";
+import RightSidebar from "./components/RightSidebar";
 import NewPostModal from "./components/NewPostModal";
 
 function App() {
@@ -27,20 +28,23 @@ function App() {
                 fluid
                 style={{
                     minHeight: "100vh",
+                    marginTop: "4vh",
                 }}
             >
                 <Row>
                     <Col>
                         <LeftSidebar />
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={7}>
                         <CardDeck>
                             <PostCard data={testData} />
                             <PostCard data={testData} />
                             <PostCard data={testData} />
                         </CardDeck>
                     </Col>
-                    <Col>Right Sidebar</Col>
+                    <Col>
+                        <RightSidebar />
+                    </Col>
                 </Row>
             </Container>
             <footer></footer>
